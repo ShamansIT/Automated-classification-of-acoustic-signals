@@ -58,27 +58,25 @@ The metadata can include:
 
 ---
 
-## **3. Directory Structure**
-The processed results (arrays and metadata) are saved in the following structure:
-
-```
-**outcome/**
-├── processed_calls/ │ 
-├── call_001.npy │ 
-├── call_002.npy │ 
-└── ... ├── processed_no_calls/ │ 
-├── no_call_001.npy │ 
-├── no_call_002.npy │ 
-└── ... 
-└── metadata.csv
-```
+## **Step 1 - Major Changes and Improvements.**
+-	**Adding functionality for processing different folders with data**: iterate through all folders (Rupes A and B, Guttural rupe, Moan, Gray Seal Data Additional), as well as search for *.wav files through glob.glob. 
+    - Purpose: Allows you to automate the processing of the entire dataset, not just one "manual" file.
+-	**Check audio if multichannel**: Added ensure_mono(samples) function that selects a single channel if the data is stereo.
+    - Purpose: Some spectrogram libraries and methods are designed for a one-dimensional signal. This eliminates possible errors and ensures the uniformity of the format.
+-	** Clearing/filling small values in the spectrogram**: Moved to the main function compute_spectrogram(...), applied stably for all files.
+    - Purpose: Improves the display of the logarithmic scale, avoiding excessively small quantities that can cause problems during visualization or training.
+-	**Cut out call and no-call fragments**: Created a function extract_call(...) that, given [t_start, t_end], highlights a subarray of the spectrogram.
+    - Purpose: No-call" is necessary to build models with "call presence vs. no call" recognition. This approach makes it possible to balance or expand the sample, reduce false positives in the detector.
+-	**Unification of spectrogram size**: A two-step approach has been created:
+    - **First pass** — collection of statistics on the maximum number of frequency bins and time bins for all calls (i.e. max_freq_points_global та max_time_points_global).
+    - **Second pass** is a direct cut and completion with zeros (np.pad(...)) so that all spectrograms are the same size.
+    - Purpose: Most machine learning models (especially CNNs) require the same size of input data (2D "images"). This simplifies the learning process and greatly improves further analysis.
+-	** Saving the results in *.npy and generating metadata **: Each cut spectrogram (call or no-call) is stored as a 2D NumPy array (*.npy).
+    - Purpose: The *.npy format allows you to quickly load data without loss to train the model (faster and more convenient than working with images). Metadata helps in analyzing results, debugging, and reproducing experiments.
+-	**Improved readability and debugging**: The code is structured by functions (compute_spectrogram, extract_call, pick_no_call_segments, etc.). Added debugging messages ([DEBUG]...) that print key information: how long the audio lasts, what speakers are in the annotations, which returns extract_call.
+    - Purpose: This makes the project easier to understand and scale, and makes it easier to find errors or analyze why certain spectrograms are cut/not cut.
 
 ---
-
-### **Additional Notes:**
-- Ensure consistency in sample rates and spectrogram dimensions across all files to avoid shape mismatches.
-- Consider verifying the integrity of each file after saving to ensure data accuracy.
-
 
 
 
