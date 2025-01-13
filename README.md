@@ -116,10 +116,10 @@ The metadata can include:
 
 In **Step 2** obtained a basic CNN model which achieved ~48% overall accuracy but strongly favors two main classes. Going forward, efforts should focus on ensuring better discrimination among more classes through dataset balancing, finding an improved architecture, and more in-depth tuning.
 
-## Analytical Findings Step 2
+# Analytical Findings Step 2
 
 ### General Overview
-The model performs best in recognizing the classes **G rupe** and **Rupe A**. For **G rupe**, we observe a fairly high recall (0.87), whereas **Rupe A** exhibits relatively balanced precision (0.61) and recall (0.73).  
+The model performs best in recognizing the classes **G rupe** and **Rupe A**. For **G rupe**, observe a fairly high recall (0.87), whereas **Rupe A** exhibits relatively balanced precision (0.61) and recall (0.73).  
 Most of the other classes are practically not recognized (precision and recall = 0.0). This indicates a strong mismatch (or bias) of the model towards certain specific classes.
 
 ### Confusion Matrix Details
@@ -151,13 +151,13 @@ Most of the other classes are practically not recognized (precision and recall =
 
 ---
 
-# Step 3 – Refine (Research Phase)
+# Refine Step 3
 
 This section describes the **third phase** of our project, aimed at **refining** previous results. Since this is a **research project**, the evaluation will be based on a **research approach** rather than simply achieving the "perfect" classifier.
 
 ---
 
-## 1. Overall Goal of "Refine"
+### Overall Goal of "Refine"
 
 - **Improve** the process of spectrogram extraction and data preparation (e.g., increase `nfft`, `noverlap`, `fmax`, apply padding, etc.).
 - **Adjust** models and training strategies (CNN or Transfer Learning parameters, learning rate, number of epochs, regularization techniques).
@@ -165,7 +165,7 @@ This section describes the **third phase** of our project, aimed at **refining**
 
 ---
 
-## 2. Key Changes in the Refine Phase
+### Key Changes in the Refine Phase
 
 1. **Spectrogram Parameters**:
    - Increased `nfft` (e.g., to 8192) for higher frequency resolution.
@@ -182,13 +182,13 @@ This section describes the **third phase** of our project, aimed at **refining**
 
 4. **Analysis of "Rare" Classes**:
    - Found that some classes have very few examples (support < 5), leading to 0.0 in precision/recall metrics.  
-   - To address this, we considered strategies such as data augmentation (oversampling, data augmentation) or merging some classes.
+   - To address this considered strategies such as data augmentation (oversampling, data augmentation) or merging some classes.
 
 ---
 
-## 3. Research Approach
+### Research Approach
 
-Since we focus on **research**, the main steps included:
+Since focus on **research**, the main steps included:
 
 1. **Parameter Verification and Documentation**:
    - To what extent does increasing `nfft` impact the spectrogram computation time?
@@ -203,7 +203,7 @@ Since we focus on **research**, the main steps included:
 
 ---
 
-## 4. Key Results
+### Key Results
 
 1. **Accuracy** slightly increased (e.g., from ~49% to ~53%).
 2. **Some classes** (notably “Rupe A” or its equivalent) show significantly improved recall, reaching 0.90.  
@@ -212,7 +212,7 @@ Since we focus on **research**, the main steps included:
 
 ---
 
-## 5. Challenges and Future Actions
+### Challenges and Future Actions
 
 1. **Data Imbalance**  
    - Track whether there are too few samples for some vocalization types. Oversampling or **artificial** data augmentation (SpecAugment, time shifting, frequency masking) may be necessary.
@@ -231,9 +231,9 @@ Since we focus on **research**, the main steps included:
 
 ---
 
-## 6. Step 3 – Refine
+### Step 3 – Refine
 
-In the **"Refine" phase**, we achieved:
+In the **"Refine" phase** achieved:
 - **Higher-quality** data preparation (higher `nfft`, wider `fmax`, padding).  
 - **Experiments** with models and hyperparameters, comparing new metrics with the old ones.  
 - Despite the continued lack of data for some classes (0.0 precision/recall), the overall results **improved** (average accuracy).
@@ -246,12 +246,17 @@ Since this is a **research** project, the **main value** lies in thorough analys
 **Step 3 – Refine** brings us closer to a **deeper** understanding of how spectrogram and model parameter settings affect the final classification. The results help outline further experiments to improve the seal vocalization detector/classifier.
 
 
-
-
 ## **Requirements**
 To complete the project, you must have:
-- Python 3.8+
-- Jupyter Notebook
+- **Python 3.8+**
+- **Jupyter Notebook**
+- **NumPy**
+- **Pandas**
+- **Matplotlib**
+- **Seaborn**
+- **SciPy**
+- **scikit-learn**
+- **PyTorch** (CPU or GPU version)
 
 
 ### **Contribution to the project**
