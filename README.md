@@ -166,6 +166,11 @@ Contributions are welcome! You can help improve the project by opening an issue 
 - [Discovery of sound in the sea](https://dosits.org/galleries/audio-gallery/marine-mammals/pinnipeds/gray-seal/)
 - [Grey Seal Halichoerus grypus](https://soundcloud.com/wildlife-sound-recording/grey-seal)
 - [The role of vocal learning in call acquisition of wild grey seal pups](https://pmc.ncbi.nlm.nih.gov/articles/PMC8419579/)
+- [Fundamentals of spectral analysis](https://www.ele.uva.es/~lourdes/docencia/Master_IE/Fundamentals_of_Spectrum_Analysis%5B2%5D.pdf)
+- [Spectrum Analysis Basics](https://www.keysight.com/blogs/en/tech/rfmw/2020/05/01/spectrum-analysis-basics-part-1-what-is-a-spectrum-analyzer)
+- [Machine learning in spectral domain](https://www.nature.com/articles/s41467-021-21481-0)
+- [Deep learning in spectral analysis: Modeling and imaging](https://www.sciencedirect.com/science/article/abs/pii/S0165993624000943)
+- [Machine learning enhanced spectroscopic analysis](https://pubs.rsc.org/en/content/articlehtml/2022/dd/d1dd00027f)
 
 
 ## **Contact Information**
