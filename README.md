@@ -151,6 +151,101 @@ Most of the other classes are practically not recognized (precision and recall =
 
 ---
 
+# Step 3 – Refine (Research Phase)
+
+This section describes the **third phase** of our project, aimed at **refining** previous results. Since this is a **research project**, the evaluation will be based on a **research approach** rather than simply achieving the "perfect" classifier.
+
+---
+
+## 1. Overall Goal of "Refine"
+
+- **Improve** the process of spectrogram extraction and data preparation (e.g., increase `nfft`, `noverlap`, `fmax`, apply padding, etc.).
+- **Adjust** models and training strategies (CNN or Transfer Learning parameters, learning rate, number of epochs, regularization techniques).
+- **Conduct experiments** with different hyperparameters, analyze results, and document observations.
+
+---
+
+## 2. Key Changes in the Refine Phase
+
+1. **Spectrogram Parameters**:
+   - Increased `nfft` (e.g., to 8192) for higher frequency resolution.
+   - Increased `noverlap` (e.g., to 2048) to achieve smoother transitions between time windows.
+   - Extended the frequency range (`fmax`) to 2000 Hz, allowing for detection of higher harmonics in seal vocalizations.
+
+2. **Spectrogram Padding**:
+   - Implemented the `pad_spectrogram()` function so that all extracted fragments (calls and no-calls) have the **same** size. This solves the issue of "different-length" spectrograms and allows proper batch formation in the PyTorch DataLoader.
+
+3. **Model and Training Configuration**:
+   - Expanded or modified the CNN architecture (SimpleCNN) or applied Transfer Learning (ResNet) with a fixed first layer for 1-channel spectrograms.
+   - Conducted experiments with different `batch_size`, `learning_rate`, and `EPOCHS`.  
+   - Evaluated accuracy, confusion matrix, and precision/recall/F1-score.
+
+4. **Analysis of "Rare" Classes**:
+   - Found that some classes have very few examples (support < 5), leading to 0.0 in precision/recall metrics.  
+   - To address this, we considered strategies such as data augmentation (oversampling, data augmentation) or merging some classes.
+
+---
+
+## 3. Research Approach
+
+Since we focus on **research**, the main steps included:
+
+1. **Parameter Verification and Documentation**:
+   - To what extent does increasing `nfft` impact the spectrogram computation time?
+   - How does `noverlap` affect temporal resolution?  
+2. **Experimental Validation**:
+   - Comparing results (accuracy, F1) before and after increasing `fmax`.
+   - Analyzing whether adding `TIME_BUFFER` or splitting WAV files into 60-second fragments improves results.
+   - Running multiple training variations (different `lr`, `batch_size`) and comparing metrics.
+3. **Maintaining Logs**:
+   - Stored each experiment in CSV or notes: the hyperparameters and the resulting metrics.
+   - Documented hypotheses (e.g., “increase `nfft` — will F1-score improve?”).
+
+---
+
+## 4. Key Results
+
+1. **Accuracy** slightly increased (e.g., from ~49% to ~53%).
+2. **Some classes** (notably “Rupe A” or its equivalent) show significantly improved recall, reaching 0.90.  
+3. **Certain classes** with low support (1–5 samples) still have 0.0 precision/recall due to insufficient data.  
+4. **Weighted F1-score** also improved, but the dataset still needs better balance or rare class handling.
+
+---
+
+## 5. Challenges and Future Actions
+
+1. **Data Imbalance**  
+   - Track whether there are too few samples for some vocalization types. Oversampling or **artificial** data augmentation (SpecAugment, time shifting, frequency masking) may be necessary.
+
+2. **Model Architecture Variations**  
+   - Try ResNet18 vs. SimpleCNN.  
+   - Test whether ResNet50 or EfficientNet-B0/B1 yields better metrics.
+
+3. **Hyperparameter Optimization**  
+   - Implement a **scheduler** (e.g., `ReduceLROnPlateau` or `StepLR`).  
+   - Increase the number of epochs (e.g., 20–30) if overfitting is not observed.
+
+4. **Further Refinements in "Refine"**  
+   - Adjust `MAX_FREQ_DIM` and `MAX_TIME_DIM` for padding to capture the real boundaries of the signal.  
+   - Experiment with **shorter** or **longer** call durations (SEGMENT_DURATION) to see if it impacts accuracy.
+
+---
+
+## 6. Step 3 – Refine
+
+In the **"Refine" phase**, we achieved:
+- **Higher-quality** data preparation (higher `nfft`, wider `fmax`, padding).  
+- **Experiments** with models and hyperparameters, comparing new metrics with the old ones.  
+- Despite the continued lack of data for some classes (0.0 precision/recall), the overall results **improved** (average accuracy).
+
+Since this is a **research** project, the **main value** lies in thorough analysis and experiment logging. Future plans include:
+- Additional augmentation for rare classes.  
+- Testing other architectures and schedulers.  
+- Potential merging of very small classes for more reliable statistics.
+
+**Step 3 – Refine** brings us closer to a **deeper** understanding of how spectrogram and model parameter settings affect the final classification. The results help outline further experiments to improve the seal vocalization detector/classifier.
+
+
 
 
 ## **Requirements**

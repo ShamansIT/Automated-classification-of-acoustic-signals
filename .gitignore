@@ -7,6 +7,10 @@ __pycache__/
 data/
 path.py
 generate_plots/
+Grey Seal Data Additional/
+Guttural rupe/
+Moan/
+Rupes A and B/
 
 # C extensions
 *.so
